@@ -1,12 +1,67 @@
+global.window = global;
+global.assert= require('chai').assert;
+require('../src/data/pokemon/pokemon.js');
 require('../src/data.js');
+require('./data.spec.js');
+
+const data = window.POKEMON.pokemon;
 
 
-describe('example', () => {
-  it('is a function', () => {
-    expect(typeof example).toBe('function');
+describe('pokemones', () => {
+
+  it('debería ser un objeto', () => {
+    window.assert.equal(typeof window.pokemones, 'object');
   });
 
-  it('returns `example`', () => {
-    expect(example()).toBe('example');
+  describe('pokemones.pokeFilter', () => {
+
+    it('debería ser una función', () => {
+      window.assert.equal(typeof window.pokemones.pokeFilter, 'function');
+    });
+
+    it('Debería retornar Balbasaur como primer pokemon de tipo planta', () => {
+      window.assert.equal(window.pokemones.pokeFilter(data, "Grass")[0].name, 'Bulbasaur');
+    });
+
+    it('Debería retornar Charmander como primer pokemon de tipo fuego', () => {
+      window.assert.equal(window.pokemones.pokeFilter(data, "Fire")[0].name, 'Charmander');
+    });
+
+  });
+
+  describe('pokemon.orderAZ', () => {
+    it('Debería ser una función', () => {
+      window.assert.equal(typeof window.pokemones.orderZA, 'function');
+    });
+
+    it('Debería retornar un arreglo con pokemones de la A a la Z', () => {
+      window.assert.deepEqual([window.pokemones.orderAZ(data, "name", "az")[0].name, window.pokemones.orderAZ(data, "name", "az")[1].name, window.pokemones.orderAZ(data, "name", "az")[2].name, window.pokemones.orderAZ(data, "name", "az")[3].name], ['Abra', 'Aerodactyl', 'Alakazam', 'Arbok']);
+    });
+  });
+
+describe('pokemon.orderZA', () => {
+  it('Debería ser una función', () => {
+    window.assert.equal(typeof window.pokemones.orderAZ, 'function');
+  });
+
+  it('Debería retornar un arreglo con pokemones de la Z a la A', () => {
+    window.assert.deepEqual([window.pokemones.orderZA(data, "name", "za")[0].name, window.pokemones.orderZA(data, "name", "za")[1].name, window.pokemones.orderZA(data, "name", "za")[2].name, window.pokemones.orderZA(data, "name", "za")[3].name, window.pokemones.orderZA(data, "name", "za")[4].name]['Zubat', 'Zapdos', 'Wigglytuff', 'Weezing', 'Weepinbell']);
   });
 });
+
+describe('pokemon.computePokemon', () => {
+      it('Debería ser una función', () => {
+        window.assert.equal(typeof window.pokemones.computePokemon, 'function');
+      });
+      it('Debería retornar un 22% de pokemones de tipo Veneno', () => {
+        window.assert.equal(window.pokemones.computePokemon(data, "Poison"),"22");
+      });
+
+
+
+
+});
+
+
+
+})
